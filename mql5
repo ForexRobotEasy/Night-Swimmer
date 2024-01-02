@@ -1,0 +1,171 @@
+
+// +------------------------------------------------------------------+
+// |                             Night Swimmer                        |
+// |             Developer's Site: forexroboteasy.com                 |
+// |                Development by: Forex Robot Easy Team             |
+// +------------------------------------------------------------------+
+
+// Include necessary libraries
+#include <Trade\Trade.mqh>
+#include <Arrays\ArrayObj.mqh>
+
+// Define constant variables
+#define TAKE_PROFIT 50       // Take profit in pips
+#define STOP_LOSS 30         // Stop loss in pips
+#define LOT_SIZE 0.01        // Lot size for trading
+#define MAX_TRADES 5         // Maximum number of trades to open
+
+// Define variables
+int totalTrades = 0;         // Total number of trades opened
+CArrayObj tradesArray(0);    // Array to store trades
+
+// Entry function
+void OnTick()
+{
+    // Check if there are already maximum number of trades opened
+    if(totalTrades >= MAX_TRADES)
+        return;
+
+    // Check if it is night trading hours
+    if(!IsNightTradingHours())
+        return;
+
+    // Calculate mean price
+    double meanPrice = CalculateMeanPrice();
+
+    // Check if current price is below mean price
+    if(Bid < meanPrice)
+    {
+        // Open a new sell trade
+        int ticket = Sell(LOT_SIZE);
+        
+        // Store the trade in tradesArray
+        tradesArray.Insert(ticket);
+        
+        // Increase totalTrades count
+        totalTrades++;
+    }
+    else if(Ask > meanPrice)
+    {
+        // Open a new buy trade
+        int ticket = Buy(LOT_SIZE);
+        
+        // Store the trade in tradesArray
+        tradesArray.Insert(ticket);
+        
+        // Increase totalTrades count
+        totalTrades++;
+    }
+}
+
+// Function to check if it is night trading hours
+bool IsNightTradingHours()
+{
+    // Implement logic to check night trading hours here
+    // Return true if it is night trading hours, otherwise false
+}
+
+// Function to calculate mean price
+double CalculateMeanPrice()
+{
+    // Implement logic to calculate mean price here
+    // Return the calculated mean price
+}
+
+// Function to close underperforming trades
+void CloseUnderperformingTrades()
+{
+    // Iterate through tradesArray
+    for(int i = 0; i < tradesArray.Total(); i++)
+    {
+        // Get the trade ticket
+        int ticket = tradesArray.At(i);
+        
+        // Check if the trade is underperforming
+        if(IsUnderperforming(ticket))
+        {
+            // Close the trade
+            CloseTrade(ticket);
+            
+            // Remove the trade from tradesArray
+            tradesArray.Delete(i);
+            
+            // Decrease totalTrades count
+            totalTrades--;
+            
+            // Adjust the index to account for deletion
+            i--;
+        }
+    }
+}
+
+// Function to check if a trade is underperforming
+bool IsUnderperforming(int ticket)
+{
+    // Implement logic to check if the trade is underperforming here
+    // Return true if the trade is underperforming, otherwise false
+}
+
+// Function to close a trade
+void CloseTrade(int ticket)
+{
+    // Implement logic to close the trade with the specified ticket
+}
+
+// Function to optimize the code
+void OptimizeCode()
+{
+    // Implement necessary code optimization here
+}
+
+// Function to provide user-friendly interface
+void UserInterface()
+{
+    // Implement user-friendly interface here
+}
+
+// Function to implement risk management features
+void RiskManagement()
+{
+    // Implement necessary risk management features here
+}
+
+// Function to provide thorough documentation
+void ProvideDocumentation()
+{
+    // Implement necessary documentation code here
+}
+
+// Function to test the code extensively
+void TestCode()
+{
+    // Implement necessary code testing here
+}
+
+// Function to gather feedback and make necessary revisions
+void GatherFeedback()
+{
+    // Implement logic to gather feedback and make revisions here
+}
+
+// Function to deliver the completed code
+void DeliverCode()
+{
+    // Implement code delivery logic here
+}
+
+//+------------------------------------------------------------------+
+//|                          Program Start                            |
+//+------------------------------------------------------------------+
+void OnStart()
+{
+    // Call necessary functions
+    CloseUnderperformingTrades();
+    OptimizeCode();
+    UserInterface();
+    RiskManagement();
+    ProvideDocumentation();
+    TestCode();
+    GatherFeedback();
+    DeliverCode();
+}
